@@ -6,6 +6,7 @@ export default function ShowQuestions(props) {
   const [choice, setChoice] = useState("");
   const [isCorrect, setIsCorrect] = useState(false);
   const [isWrong, setIsWrong] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(0);
   const array = props.data;
 
@@ -41,11 +42,15 @@ export default function ShowQuestions(props) {
     }
   };
 
+  const handleFinish = (event) => {
+    event.preventDefault();
+    setIsFinished(true);
+  };
   return (
-    <div>
-      <h3>{array[index].question}</h3>
+    <div className="question-section">
+      <h3 className="question">{array[index].question}</h3>
       {answers.map((answer) => (
-        <label>
+        <label className="label">
           <input
             type="radio"
             name="answer"
@@ -57,10 +62,28 @@ export default function ShowQuestions(props) {
           <br />
         </label>
       ))}
-      <button onClick={checkAnswer}>Submit</button>
-      {isCorrect && <p id="correct">Correct</p>}
-      {isWrong && <p id="incorrect">Incorrect</p>}
-      <button onClick={handleClick}>Next</button>
+      <div className="container">
+        <div className="buttons">
+          <button className="btn-1" onClick={checkAnswer}>
+            Submit
+          </button>
+          {index < array.length - 1 && (
+            <button className="btn-1" onClick={handleClick}>
+              Next
+            </button>
+          )}
+          {index === array.length - 1 && (
+            <button className="btn-1" onClick={handleFinish}>
+              Finish
+            </button>
+          )}
+        </div>
+        {isCorrect && <p id="correct">CORRECT</p>}
+        {isWrong && <p id="incorrect">INCORRECT</p>}
+        {isFinished && (
+          <p id="correctA">You got {correctAnswer} correct answers</p>
+        )}
+      </div>
     </div>
   );
 }

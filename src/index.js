@@ -9,8 +9,7 @@ import Middle from "./components/Middle.js";
 ReactDOM.render(
   <div>
     <Header />
-    <Middle />
-    <Footer className="footer" />
+    <Middle /> {/* <Footer className="footer" /> */}{" "}
   </div>,
   document.getElementById("root")
 );
